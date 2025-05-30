@@ -24,7 +24,7 @@ function processImageToCanvas(img) {
             image_data = img_data_url.split(",")[1];
             console.log("Image Base64 data extracted (first 50 chars):", image_data.substring(0, 50) + "...");
         } else {
-            console.warn("canvas.toDataURL() returned empty string, image might not be fully loaded or drawn.");
+            //console.warn("canvas.toDataURL() returned empty string, image might not be fully loaded or drawn.");
         }
     } catch (e) {
         console.error("Error drawing image to canvas or getting data URL:", e);
@@ -73,7 +73,7 @@ async function get_ocr_image() {
             });
         }
     } else {
-        console.warn("Captcha image element not found with ID 'TicketForm_verifyCode-image' or common selectors.");
+        //console.warn("Captcha image element not found with ID 'TicketForm_verifyCode-image' or common selectors.");
         return "";
     }
 }
@@ -169,7 +169,7 @@ async function autoFillCaptchaAndProceed() {
                             console.log("🚀 已自動送出表單");
                         }, 3);
                     } else {
-                        console.warn("⚠️ 找不到送出按鈕 (.btn-green)");
+                        //console.warn("⚠️ 找不到送出按鈕 (.btn-green)");
                     }
                 } else {
                     console.error("Captcha input field not found with ID 'TicketForm_verifyCode' or common selectors.");
@@ -206,7 +206,7 @@ chrome.storage.local.get(["tixcraft_settings"], (data) => {
         selectEl.dispatchEvent(changeEvent);
         console.log(`🎫 已選擇 ${desiredCount} 張票`);
     } else {
-        console.warn("⚠️ 找不到票數下拉選單 (#TicketForm_ticketPrice_02)");
+        //console.warn("⚠️ 找不到票數下拉選單 (#TicketForm_ticketPrice_02)");
     }
 
     // 延遲觸發 OCR，確保頁面元素完全渲染且圖片有時間載入

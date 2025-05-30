@@ -35,7 +35,7 @@ function selectTicketDateTimeAndOrder() {
 
         const gameListTable = document.getElementById('gameList');
         if (!gameListTable) {
-            console.warn("⚠️ 找不到遊戲列表表格 (#gameList)。");
+            //console.warn("⚠️ 找不到遊戲列表表格 (#gameList)。");
             return;
         }
 
@@ -81,14 +81,18 @@ function selectTicketDateTimeAndOrder() {
                         foundMatch = true;
                         break; // 找到並點擊後就退出循環
                     } else {
-                        console.warn("⚠️ 找到匹配場次但找不到「立即訂購」按鈕。");
+                        //console.warn("⚠️ 找到匹配場次但找不到「立即訂購」按鈕。");
                     }
                 }
             }
         }
 
         if (!foundMatch) {
-            console.warn("⚠️ 未找到符合設定的場次。");
+            //console.warn("⚠️ 未找到符合設定的場次。");
+            console.log("❌ 沒有符合條件的場次，準備自動重新整理...");
+            setTimeout(() => {
+                location.reload();
+            }, 100); // 延遲 100ms 避免過度刷新
         }
     });
 }
@@ -99,4 +103,23 @@ const banner = document.querySelector('.event-banner');
 if (banner) {
     banner.remove(); // 移除廣告橫幅
 }
+
+const gameListTable = document.getElementById('gameList');
+let rows = gameListTable.querySelectorAll('tbody tr');
+for (const row of rows) {
+    const cells = row.querySelectorAll('td');
+    if (cells.length >= 4) { // 確保有足夠的列
+        const purchaseStatus = cells[3].textContent.trim(); // 第四列是購買狀態
+        const eventName = cells[1].textContent.trim();      // 第二列是場次名稱
+        if (purchaseStatus.includes('已售完') || purchaseStatus.includes('選購一空')) {
+            row.remove(); // 移除已售完的場次
+        }
+        if (purchaseStatus.includes('MyVideo')) {
+            row.remove();
+        }
+    }
+}
+
+
+console.log(`📊 過濾後剩餘場次數量: ${rows.length}`);
 setTimeout(selectTicketDateTimeAndOrder, 5); // 可以根據需要調整延遲時間
