@@ -1,0 +1,81 @@
+{
+    "manifest_version": 3,
+    "name": "tixcraft Auto Ticket",
+    "version": "1.0",
+    "description": "自動搶票工具",
+    "permissions": [
+        "storage",
+        "activeTab",
+        "tabs",
+        "scripting"
+    ],
+    "host_permissions": [
+        "<all_urls>",
+        "http://127.0.0.1:16888/*"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "action": {
+        "default_title": "tixcraft Auto Ticket",
+        "default_popup": "options.html"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "*://*.tixcraft.com/ticket/ticket/*",
+                "*://tixcraft.com/ticket/ticket/*"
+            ],
+            "js": [
+                "content_script.js"
+            ],
+            "run_at": "document_idle"
+        },
+        {
+            "matches": [
+                "https://tixcraft.com/ticket/area/*",
+                "https://*.tixcraft.com/ticket/area/*"
+            ],
+            "js": [
+                "detail_script.js"
+            ],
+            "run_at": "document_idle"
+        },
+        {
+            "matches": [
+                "https://tixcraft.com/activity/game/*"
+            ],
+            "js": [
+                "selection_script.js"
+            ],
+            "run_at": "document_end"
+        },
+        {
+            "matches": [
+                "https://tixcraft.com/activity/detail/*"
+            ],
+            "js": [
+                "redirect_script.js"
+            ],
+            "run_at": "document_start"
+        }
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "inject.js"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
+        }
+    ],
+    "commands": {
+        "toggle-bot": {
+            "suggested_key": {
+                "default": "Ctrl+Space"
+            },
+            "description": "啟動或停止搶票機器人"
+        }
+    }
+}

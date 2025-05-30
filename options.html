@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <title>設定搶票資訊</title>
+    <style>
+        body {
+            font-family: "Microsoft JhengHei", Arial, sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 0;
+            width: 400px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            padding-bottom: 80px;
+        }
+
+        #save {
+            position: fixed;
+            bottom: 10px;
+            /* Adjust space from bottom edge as needed */
+            left: 50%;
+            transform: translateX(-50%);
+            /* Center the button */
+            width: 360px;
+            /* Sets the content width to match container's content area (480px body - 2*30px container padding) */
+            /* The button's total width will be 420px + 2*12px padding = 444px */
+            z-index: 1000;
+            /* Ensures the button stays on top of other content */
+            margin-top: 0;
+            /* Overrides the margin-top from the general button style */
+            /* Visual styles like padding, background-color, color, etc., will be inherited from the 'button' rule */
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 20px;
+            color: #444;
+            font-size: 15px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px 14px;
+            margin-top: 6px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #2b8ded;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #1f6fd2;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                margin: 20px;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>TIXCRAFT 搶票設定</h2>
+
+        <label>OCR API 網址:
+            <input type="text" id="ocrApiUrl" placeholder="例如：https://your-ocr-api.com/ocr">
+            <small>請輸入 OCR API 伺服器網址</small>
+        </label>
+
+        <label>場次關鍵字（可空白，可多個，用空格分隔）:
+            <input type="text" id="session" placeholder="例如：高雄 下午場">
+            <small>格式：高雄、下午場</small>
+        </label>
+
+        <label>搶票日期:
+            <input type="text" id="date" placeholder="例如：07/12">
+            <small>格式：06/01</small>
+        </label>
+
+        <label>日期搜尋順序:
+            <select id="dateOrder">
+                <option value="top-down">由上至下</option>
+                <option value="bottom-up">由下至上</option>
+                <option value="middle">從中間開始</option>
+            </select>
+        </label>
+
+        <label>票價關鍵字（可多個，用空格分隔）:
+            <input type="text" id="price" placeholder="例如：3000">
+            <small>格式：2880</small>
+        </label>
+
+        <label>票種關鍵字（可多個，用空格分隔）:
+            <input type="text" id="name" placeholder="例如：VIP">
+            <small>格式：VIP、紅2C</small>
+        </label>
+
+        <label>票價搜尋順序:
+            <select id="priceOrder">
+                <option value="top-down">由上至下</option>
+                <option value="bottom-up">由下至上</option>
+                <option value="middle">從中間開始</option>
+            </select>
+        </label>
+
+        <label>張數:
+            <input type="number" id="count" min="1" placeholder="例如：2">
+            <small>格式：4</small>
+        </label>
+
+        <label>
+            <input type="checkbox" id="autoReload">
+            沒有符合票種時自動重新整理
+        </label><br><br>
+
+
+        <button id="save">💾 儲存</button>
+    </div>
+
+    <script src="options.js"></script>
+</body>
+
+</html>
